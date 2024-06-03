@@ -26,7 +26,9 @@ def map_to_schema(scan: Scan) -> ScanOut:
         status=scan.status,
         assets_scanned=assets_out,
         scanners=scanners_out,
-        severity_counts=severity_count_out
+        severity_counts=severity_count_out,
+        started_at=scan.started_at,
+        finished_at=scan.finished_at
     )
     return scan_out
 

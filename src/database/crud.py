@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy.orm import Session
 
 from src.asset.models import Asset
@@ -78,6 +80,10 @@ def update_scan(db: Session, scan_id: int, patch_scan_schema: ScanPatch) -> Scan
     scan.severity_count.medium = patch_scan_schema.severity_counts.medium
     scan.severity_count.low = patch_scan_schema.severity_counts.low
     scan.severity_count.information = patch_scan_schema.severity_counts.information
+    if patch_scan_schema.status == Status.completed:
+        scan.finished_at = datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+    else:
+        scan.finished_at = None
     db.commit()
     db.refresh(scan)
     return scan

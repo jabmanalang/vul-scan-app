@@ -1,3 +1,5 @@
+import datetime
+
 from pydantic import BaseModel
 
 from src.enums import Status
@@ -26,6 +28,8 @@ class ScanOut(ScanBase):
     id: int
     status: Status
     severity_counts: SeverityCount
+    started_at: datetime.datetime
+    finished_at: datetime.datetime | None
 
 
 class ScanPatch(BaseModel):
